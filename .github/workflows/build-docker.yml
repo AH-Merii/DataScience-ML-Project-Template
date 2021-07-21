@@ -1,0 +1,87 @@
+name: Test Build and Push Docker
+
+on:
+  push:
+    branches: [ 'main', 'production' ]
+  pull_request:
+    branches: [ 'main', 'production']
+    
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+  CONDA_ENV_NAME: template-env
+  ENV_YML: environment.yml
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+    
+    defaults:
+      run:
+        shell: bash -l {0}
+        
+    steps:
+      - 
+        name: Checkout
+        uses: actions/checkout@v2
+      - 
+        name: Setup and activate conda
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+          activate-environment: ${{ env.CONDA_ENV_NAME }}
+          environment-file: ${{ env.ENV_YML }}
+          auto-activate-base: false
+      -
+        name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ env.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-central-1
+      - 
+        name: Setup dvc
+        uses: iterative/setup-dvc@v1
+      - 
+        name: Run pytest
+        run: |
+          pytest
+          
+  build-and-push-image:
+      needs: run-tests
+      runs-on: ubuntu-latest
+      permissions:
+        contents: read
+        packages: write
+
+      steps:
+      - 
+        name: Checkout repository
+        if: github.event_name != 'pull_request'
+        uses: actions/checkout@v2
+      -   
+        name: Log in to the Container registry
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v1
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - 
+        name: Extract metadata (tags, labels) for Docker
+        if: github.event_name != 'pull_request'
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+      - 
+        name: Build and push Docker image
+        if: github.event_name != 'pull_request'
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          
