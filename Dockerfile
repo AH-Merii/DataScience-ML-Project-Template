@@ -7,11 +7,11 @@ RUN apt-get update && \
 
 RUN conda update -n base -c defaults conda && \
     conda install mamba -n base -c conda-forge
-    
+
 COPY envs ./envs
 
 COPY Makefile ./
 
-RUN make .conda/
+RUN make env
 
 COPY . .

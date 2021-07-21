@@ -7,9 +7,9 @@ CONDA_ENV_FILE=envs/environment.yml
 CONDA_ACTIVATE=source $$(conda info --base)/etc/profile.d/conda.sh ; conda activate ; conda activate
 
 # dummy targets
-.PHONY: all clean run
+.PHONY: all clean run env
 
-all: .conda run
+all: env run
 
 clean: ## Remove generated files
 	rm -f data/raw/*
@@ -24,7 +24,7 @@ test: .conda/ ## Run tests using pytest
 	$(CONDA_ACTIVATE) ./.conda
 	pytest
 
-.conda/ : ## Set up the conda environment
+env : ## Set up the conda environment
 	((mamba env create --prefix .conda -f $(CONDA_ENV_FILE) ||\
 	mamba env update --prefix .conda -f $(CONDA_ENV_FILE)) &&\
 	mamba clean --all --yes) ||\
