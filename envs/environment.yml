@@ -1,0 +1,21 @@
+# run conda env create --file environment.yml
+name: template-env
+channels:
+- conda-forge
+dependencies:
+ - python=3.8.5
+ - numpy
+ - requests
+ - scikit-learn
+ # - pytorch
+ - pandas
+ - jupyter
+ - ipython
+ - click
+ - black
+ - ipykernel
+ - matplotlib
+ - watchdog
+ - pip
+ - pytest
+ - pip:
