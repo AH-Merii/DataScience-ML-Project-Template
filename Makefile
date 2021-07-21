@@ -1,7 +1,7 @@
 .ONESHELL:
 SHELL=/bin/bash
 
-CONDA_ENV_FILE=environment.yml
+CONDA_ENV_FILE=envs/environment.yml
 
 # activate conda
 CONDA_ACTIVATE=source $$(conda info --base)/etc/profile.d/conda.sh ; conda activate ; conda activate
