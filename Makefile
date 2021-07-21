@@ -7,7 +7,7 @@ CONDA_ENV_FILE=envs/environment.yml
 CONDA_ACTIVATE=source $$(conda info --base)/etc/profile.d/conda.sh ; conda activate ; conda activate
 
 # dummy targets
-.PHONY: all clean dataset run
+.PHONY: all clean run
 
 all: .conda run
 
@@ -31,7 +31,6 @@ test: .conda/ ## Run tests using pytest
 	((conda env create --prefix .conda -f $(CONDA_ENV_FILE) ||\
 	conda env update --prefix .conda -f $(CONDA_ENV_FILE)) &&\
 	conda clean --all --yes)
-	$(CONDA_ACTIVATE) ./.conda
 
 help: ## Show this help.
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z0-9_-]+:.*?## / {printf "\033[36m%-38s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
