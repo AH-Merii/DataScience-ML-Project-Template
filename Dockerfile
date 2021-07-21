@@ -7,8 +7,8 @@ RUN apt-get update && \
 
 RUN conda update -n base -c defaults conda
 
-COPY environment.yaml Makefile ./
+COPY environment.yml Makefile ./
 
-RUN make env
+RUN make .conda
 
 COPY . .
