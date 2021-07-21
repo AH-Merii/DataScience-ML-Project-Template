@@ -6,9 +6,9 @@ RUN apt-get update && \
     apt-get install --no-install-recommends -y build-essential gcc
 
 RUN conda update -n base -c defaults conda && \
-    conda install mamba
+    conda install mamba -n base -c conda-forge
 
-COPY envs/ Makefile
+COPY envs/ Makefile ./
 
 RUN make .conda/
 
