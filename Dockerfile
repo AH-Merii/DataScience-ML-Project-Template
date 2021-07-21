@@ -5,7 +5,8 @@ WORKDIR /app
 RUN apt-get update && \
     apt-get install --no-install-recommends -y build-essential gcc
 
-RUN conda update -n base -c defaults conda
+RUN conda update -n base -c defaults conda && \
+    conda install mamba
 
 COPY envs/ Makefile
 
