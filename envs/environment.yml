@@ -7,16 +7,17 @@ dependencies:
  - numpy
  - requests
  - scikit-learn
- # - pytorch
  - pandas
- - jupyter
- - ipython
  - click
- - black
- - ipykernel
  - matplotlib
- - watchdog
+ # - pytorch
+ # - jupyter
  - pip
  - pytest
+ - pre_commit
+ - black
+ - flake8
  - pip:
- 
+
+
+
