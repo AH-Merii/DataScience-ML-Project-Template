@@ -10,6 +10,6 @@ RUN conda update -n base -c defaults conda && \
 
 COPY envs/ Makefile
 
-RUN make .conda
+RUN make .conda/
 
 COPY . .
