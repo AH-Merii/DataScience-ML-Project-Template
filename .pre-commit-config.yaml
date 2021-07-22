@@ -7,7 +7,6 @@ repos:
     -   id: check-json
     -   id: check-added-large-files
     -   id: check-yaml
-    -   id: double-quote-string-fixer
     -   id: requirements-txt-fixer
 -   repo: https://github.com/PyCQA/flake8
     rev: 3.9.2
