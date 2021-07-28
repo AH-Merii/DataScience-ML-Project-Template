@@ -1,6 +1,6 @@
 # Data Science Machine Learning Project Template
 ## About
-### Directory Structure 
+### Directory Structure
 The `/data` dir should contain all the data that will be used in the project.
 `/data/raw/` contains all the raw data used in the project. Raw Data must never be manually changed, any change to the raw data must be scripted and placed in the `/src/data/` dir. The output data should be stored in the `/data/processed/` dir.
 
@@ -43,7 +43,7 @@ Checks whether the pre-commits pass or not.
 Prevent giant files from being committed.
   - Specify what is "too large" with `args: ['--maxkb=123']` (default=500kB).
   - Limits checked files to those indicated as staged for addition by git.
-    
+
 #### `check-json`
 Attempts to load all json files to verify syntax.
 
@@ -52,13 +52,13 @@ Attempts to load all xml files to verify syntax.
 
 #### `check-yaml`
 Attempts to load all yaml files to verify syntax.
-    
+
 #### `end-of-file-fixer`
 Makes sure files end in a newline and only a newline.
 
 #### `pretty-format-json`
 Checks that all your JSON files are pretty.  "Pretty"
-here means that keys are sorted and indented. 
+here means that keys are sorted and indented.
 
 #### `requirements-txt-fixer`
 Sorts entries in requirements.txt and removes incorrect entry for `pkg-resources==0.0.0`
