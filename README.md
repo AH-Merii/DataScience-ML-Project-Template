@@ -52,26 +52,13 @@ Attempts to load all xml files to verify syntax.
 
 #### `check-yaml`
 Attempts to load all yaml files to verify syntax.
-  - `--allow-multiple-documents` - allow yaml files which use the
-    [multi-document syntax](http://www.yaml.org/spec/1.2/spec.html#YAML)
-  - `--unsafe` - Instead of loading the files, simply parse them for syntax.
-    A syntax-only check enables extensions and unsafe constructs which would
-    otherwise be forbidden.  Using this option removes all guarantees of
-    portability to other yaml implementations.
-    Implies `--allow-multiple-documents`.
     
 #### `end-of-file-fixer`
 Makes sure files end in a newline and only a newline.
 
 #### `pretty-format-json`
 Checks that all your JSON files are pretty.  "Pretty"
-here means that keys are sorted and indented.  You can configure this with
-the following commandline options:
-  - `--autofix` - automatically format json files
-  - `--indent ...` - Control the indentation (either a number for a number of spaces or a string of whitespace).  Defaults to 2 spaces.
-  - `--no-ensure-ascii` preserve unicode characters instead of converting to escape sequences
-  - `--no-sort-keys` - when autofixing, retain the original key ordering (instead of sorting the keys)
-  - `--top-keys comma,separated,keys` - Keys to keep at the top of mappings.
+here means that keys are sorted and indented. 
 
 #### `requirements-txt-fixer`
 Sorts entries in requirements.txt and removes incorrect entry for `pkg-resources==0.0.0`
@@ -82,12 +69,6 @@ keys, preserving comments and blocks.
 
 #### `trailing-whitespace`
 Trims trailing whitespace.
-  - To preserve Markdown [hard linebreaks](https://github.github.com/gfm/#hard-line-break)
-    use `args: [--markdown-linebreak-ext=md]` (or other extensions used
-    by your markdownfiles).  If for some reason you want to treat all files
-    as markdown, use `--markdown-linebreak-ext=*`.
-  - By default, this hook trims all whitespace from the ends of lines.
-    To specify a custom set of characters to trim instead, use `args: [--chars,"<chars to trim>"]`.
 
 #### `flake8`
 `Flake8` runs all the tools by launching the single `flake8` command. It displays the warnings in a per-file, merged output.
